@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CRUDDemo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250321063615_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250321082628_CrudMigration")]
+    partial class CrudMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace CRUDDemo.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employee", (string)null);
                 });
 #pragma warning restore 612, 618
         }

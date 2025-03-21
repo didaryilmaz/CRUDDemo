@@ -1,42 +1,36 @@
+using CRUDDemo.Abstract;
 using CRUDDemo.Data;
+using CRUDDemo.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// PostgreSQL bağlantı dizesini al
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-// AppDbContext'i PostgreSQL ile kullanacak şekilde yapılandır
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddControllers();
-// CORS politikasını tanımla
-builder.Services.AddCors(options =>
+public class Program
 {
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-});
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
 
-// Swagger (OpenAPI) servisini ekle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureServices(services =>
+                {
+                    services.AddDbContext<AppDbContext>(options =>
+                        options.UseNpgsql("Host=localhost;Port=5432;Database=crudDemoDb;Username=postgres;Password=ddrylmz")); // Use your database connection string here
 
-var app = builder.Build();
+                    services.AddControllers();   
+                    services.AddScoped<IEmployeeService, EmployeeService>(); // Register the service
+                });
 
-// Swagger Middleware
-app.UseSwagger();
-app.UseSwaggerUI();
-
-// CORS Middleware
-app.UseCors("AllowAll");
-
-// Yetkilendirme ve kimlik doğrulama
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers(); // Controller'ları kullanıma sun
-
-app.Run();
+                webBuilder.Configure(app =>
+                {
+                    app.UseRouting();
+                    app.UseEndpoints(endpoints =>
+                    {
+                        endpoints.MapControllers();
+                    });
+                });
+            });
+}

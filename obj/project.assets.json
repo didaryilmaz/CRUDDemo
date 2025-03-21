@@ -3270,11 +3270,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/didaryilmaz/CRUDDemo/CRUDDemo.csproj",
+      "projectUniqueName": "/Users/didaryilmaz/Documents/GitHub/CRUDDemo/CRUDDemo.csproj",
       "projectName": "CRUDDemo",
-      "projectPath": "/Users/didaryilmaz/CRUDDemo/CRUDDemo.csproj",
+      "projectPath": "/Users/didaryilmaz/Documents/GitHub/CRUDDemo/CRUDDemo.csproj",
       "packagesPath": "/Users/didaryilmaz/.nuget/packages/",
-      "outputPath": "/Users/didaryilmaz/CRUDDemo/obj/",
+      "outputPath": "/Users/didaryilmaz/Documents/GitHub/CRUDDemo/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/didaryilmaz/.nuget/NuGet/NuGet.Config"
